@@ -1,5 +1,8 @@
 package com.smartcampus.resource;
 
+// Student ID: w2069246
+// Student Name: Mohammed Sami Bari
+
 // LOCATION: src/main/java/com/smartcampus/resource/SensorResource.java
 // REPLACE your existing SensorResource.java with this
 

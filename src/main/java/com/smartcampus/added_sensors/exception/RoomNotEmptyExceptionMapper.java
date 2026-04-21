@@ -1,5 +1,8 @@
 package com.smartcampus.exception;
 
+// Student ID: w2069246
+// Student Name: Mohammed Sami Bari
+
 // LOCATION: src/main/java/com/smartcampus/exception/RoomNotEmptyExceptionMapper.java
 
 import jakarta.ws.rs.core.MediaType;

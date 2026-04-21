@@ -1,5 +1,8 @@
 package com.smartcampus.resource;
 
+// Student ID: w2069246
+// Student Name: Mohammed Sami Bari
+
 // LOCATION: src/main/java/com/smartcampus/resource/rootResource.java
 // REPLACE your existing rootResource.java with this
 

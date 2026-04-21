@@ -1,5 +1,8 @@
 package com.smartcampus.exception;
 
+// Student ID: w2069246
+// Student Name: Mohammed Sami Bari
+
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;

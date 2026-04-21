@@ -1,5 +1,8 @@
 package com.smartcampus.exception;
 
+// Student ID: w2069246
+// Student Name: Mohammed Sami Bari
+
 // LOCATION: src/main/java/com/smartcampus/exception/SensorUnavailableException.java
 
 public class SensorUnavailableException extends RuntimeException {

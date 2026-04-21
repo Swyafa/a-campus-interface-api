@@ -1,5 +1,8 @@
 package com.smartcampus.model;
 
+// Student ID: w2069246
+// Student Name: Mohammed Sami Bari
+
 // LOCATION: src/main/java/com/smartcampus/model/Sensor.java
 
 public class Sensor {

@@ -1,6 +1,7 @@
 package com.smartcampus.resource;
 
 // LOCATION: src/main/java/com/smartcampus/resource/SensorResource.java
+// REPLACE your existing SensorResource.java with this
 
 import com.smartcampus.exception.ErrorBody;
 import com.smartcampus.exception.LinkedResourceNotFoundException;
@@ -10,6 +11,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -22,9 +24,9 @@ public class SensorResource {
     // GET /sensors  or  GET /sensors?type=CO2
     @GET
     public List<Sensor> getSensors(@QueryParam("type") String type) {
-        List<Sensor> all = new ArrayList<>(dataStore.sensors.values());
+        List<Sensor> all = new ArrayList<Sensor>(dataStore.sensors.values());
         if (type != null && !type.trim().isEmpty()) {
-            List<Sensor> filtered = new ArrayList<>();
+            List<Sensor> filtered = new ArrayList<Sensor>();
             for (Sensor s : all) {
                 if (type.equalsIgnoreCase(s.type)) filtered.add(s);
             }
@@ -33,7 +35,7 @@ public class SensorResource {
         return all;
     }
 
-    // POST /sensors
+    // POST /sensors — validates roomId exists, returns 201 + Location header
     @POST
     public Response createSensor(Sensor sensor) {
         if (sensor.type == null || sensor.type.trim().isEmpty()) {
@@ -54,10 +56,13 @@ public class SensorResource {
         if (sensor.status == null || sensor.status.trim().isEmpty()) {
             sensor.status = "ACTIVE";
         }
+
         sensor.id = UUID.randomUUID().toString();
         dataStore.sensors.put(sensor.id, sensor);
-        dataStore.readings.put(sensor.id, new ArrayList<>());
-        return Response.status(Response.Status.CREATED).entity(sensor).build();
+        dataStore.readings.put(sensor.id, new ArrayList<com.smartcampus.model.SensorReading>());
+
+        URI location = URI.create("http://localhost:8080/sensors/" + sensor.id);
+        return Response.created(location).entity(sensor).build();  // 201 + Location header
     }
 
     // GET /sensors/{id}
@@ -73,7 +78,7 @@ public class SensorResource {
         return Response.ok(sensor).build();
     }
 
-    // Sub-Resource Locator — no HTTP verb annotation
+    // Sub-Resource Locator — no HTTP verb, Jersey dispatches to SensorReadingResource
     @Path("/{id}/readings")
     public SensorReadingResource getReadingResource(@PathParam("id") String sensorId) {
         return new SensorReadingResource(sensorId);

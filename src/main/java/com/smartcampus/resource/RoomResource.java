@@ -1,15 +1,18 @@
 package com.smartcampus.resource;
 
 // LOCATION: src/main/java/com/smartcampus/resource/RoomResource.java
+// REPLACE your existing RoomResource.java with this
 
 import com.smartcampus.exception.ErrorBody;
 import com.smartcampus.exception.RoomNotEmptyException;
 import com.smartcampus.model.Room;
+import com.smartcampus.model.Sensor;
 import com.smartcampus.store.dataStore;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -22,10 +25,10 @@ public class RoomResource {
     // GET /rooms
     @GET
     public List<Room> getRooms() {
-        return new ArrayList<>(dataStore.rooms.values());
+        return new ArrayList<Room>(dataStore.rooms.values());
     }
 
-    // POST /rooms — create room, returns 201
+    // POST /rooms — returns 201 Created with Location header
     @POST
     public Response createRoom(Room room) {
         if (room.name == null || room.name.trim().isEmpty()) {
@@ -35,7 +38,9 @@ public class RoomResource {
         }
         room.id = UUID.randomUUID().toString();
         dataStore.rooms.put(room.id, room);
-        return Response.status(Response.Status.CREATED).entity(room).build();
+
+        URI location = URI.create("http://localhost:8080/rooms/" + room.id);
+        return Response.created(location).entity(room).build();  // 201 + Location header
     }
 
     // GET /rooms/{id}
@@ -61,13 +66,15 @@ public class RoomResource {
                     .entity(new ErrorBody(404, "Room not found: " + id))
                     .build();
         }
+
         boolean hasSensors = false;
-        for (com.smartcampus.model.Sensor s : dataStore.sensors.values()) {
+        for (Sensor s : dataStore.sensors.values()) {
             if (id.equals(s.roomId)) { hasSensors = true; break; }
         }
         if (hasSensors) {
-            throw new RoomNotEmptyException(id);
+            throw new RoomNotEmptyException(id);  // → 409
         }
+
         dataStore.rooms.remove(id);
         return Response.noContent().build();  // 204
     }

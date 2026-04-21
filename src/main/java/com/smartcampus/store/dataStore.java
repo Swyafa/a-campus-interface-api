@@ -1,18 +1,27 @@
 package com.smartcampus.store;
 
 // LOCATION: src/main/java/com/smartcampus/store/dataStore.java
+// REPLACE your existing dataStore.java with this
 
 import com.smartcampus.model.Room;
 import com.smartcampus.model.Sensor;
 import com.smartcampus.model.SensorReading;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * In-memory data store using ConcurrentHashMap.
+ *
+ * ConcurrentHashMap is used instead of HashMap because JAX-RS creates a new
+ * resource instance per request by default (request-scoped lifecycle).
+ * Multiple requests can therefore access this shared static state concurrently,
+ * making thread-safe collections essential to prevent race conditions and
+ * data corruption.
+ */
 public class dataStore {
-    public static Map<String, Room>                rooms    = new HashMap<String, Room>();
-    public static Map<String, Sensor>              sensors  = new HashMap<String, Sensor>();
-    public static Map<String, List<SensorReading>> readings = new HashMap<String, List<SensorReading>>();
+    public static Map<String, Room>                rooms    = new ConcurrentHashMap<String, Room>();
+    public static Map<String, Sensor>              sensors  = new ConcurrentHashMap<String, Sensor>();
+    public static Map<String, List<SensorReading>> readings = new ConcurrentHashMap<String, List<SensorReading>>();
 }

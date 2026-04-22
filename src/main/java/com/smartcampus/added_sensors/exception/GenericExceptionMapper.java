@@ -12,7 +12,7 @@ import jakarta.ws.rs.ext.Provider;
 public class GenericExceptionMapper implements ExceptionMapper<Throwable> {
     @Override
     public Response toResponse(Throwable ex) {
-        // Never expose the stack trace in the response — security risk
+        // security risk - response thrown back.
         return Response
                 .status(Response.Status.INTERNAL_SERVER_ERROR)   // 500
                 .type(MediaType.APPLICATION_JSON)

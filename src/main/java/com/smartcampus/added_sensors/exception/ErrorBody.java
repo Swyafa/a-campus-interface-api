@@ -3,7 +3,7 @@ package com.smartcampus.exception;
 // Student ID: w2069246
 // Student Name: Mohammed Sami Bari
 
-// LOCATION: src/main/java/com/smartcampus/exception/ErrorBody.java
+
 
 public class ErrorBody {
     private int status;

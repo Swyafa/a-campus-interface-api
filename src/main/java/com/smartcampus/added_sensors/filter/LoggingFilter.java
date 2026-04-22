@@ -5,6 +5,7 @@ package com.smartcampus.filter;
 
 // LOCATION: src/main/java/com/smartcampus/filter/LoggingFilter.java
 
+import jakarta.annotation.Nonnull;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.container.ContainerResponseContext;
@@ -26,7 +27,7 @@ public class LoggingFilter
     }
 
     @Override
-    public void filter(ContainerRequestContext req, ContainerResponseContext res) throws IOException {
+    public void filter(@Nonnull ContainerRequestContext req, ContainerResponseContext res) throws IOException {
         LOG.info("[RESPONSE] " + req.getMethod() + " " + req.getUriInfo().getRequestUri()
                 + " -> HTTP " + res.getStatus());
     }

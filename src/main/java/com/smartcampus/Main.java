@@ -25,11 +25,11 @@ public class Main {
         config.register(JacksonFeature.class);
 
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(
-                URI.create("http://localhost:8080"),
+                URI.create("http://localhost:8080/api/v1/"),
                 config
         );
 
-        System.out.println("Smart Campus API running at http://localhost:8080");
+        System.out.println("Smart Campus API running at http://localhost:8080/api/v1/");
         System.out.println("Press ENTER to stop.");
         System.in.read();
         server.shutdown();

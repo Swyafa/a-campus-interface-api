@@ -308,3 +308,4 @@ JAX-RS filters solve this architecturally. A class implementing `ContainerReques
 - **Sub-resource locator** — `/sensors/{id}/readings` is handled by a dedicated `SensorReadingResource` class, keeping responsibilities separated
 - **ErrorBody POJO** — all error responses use a consistent `{"status": N, "error": "..."}` structure via the `ErrorBody` class, rather than raw strings
 - **ConcurrentHashMap** — used instead of `HashMap` to handle concurrent requests safely without explicit synchronisation blocks
+- **test

@@ -3,8 +3,6 @@ package com.smartcampus.resource;
 // Student ID: w2069246
 // Student Name: Mohammed Sami Bari
 
-// LOCATION: src/main/java/com/smartcampus/resource/SensorResource.java
-// REPLACE your existing SensorResource.java with this
 
 import com.smartcampus.exception.ErrorBody;
 import com.smartcampus.exception.LinkedResourceNotFoundException;
@@ -24,7 +22,6 @@ import java.util.UUID;
 @Consumes(MediaType.APPLICATION_JSON)
 public class SensorResource {
 
-    // GET /sensors  or  GET /sensors?type=CO2
     @GET
     public List<Sensor> getSensors(@QueryParam("type") String type) {
         List<Sensor> all = new ArrayList<Sensor>(dataStore.sensors.values());
@@ -38,7 +35,7 @@ public class SensorResource {
         return all;
     }
 
-    // POST /sensors — validates roomId exists, returns 201 + Location header
+    // this will validate if the roomId exists, returns 201 and location header
     @POST
     public Response createSensor(Sensor sensor) {
         if (sensor.type == null || sensor.type.trim().isEmpty()) {
@@ -65,10 +62,10 @@ public class SensorResource {
         dataStore.readings.put(sensor.id, new ArrayList<com.smartcampus.model.SensorReading>());
 
         URI location = URI.create("http://localhost:8080/sensors/" + sensor.id);
-        return Response.created(location).entity(sensor).build();  // 201 + Location header
+        return Response.created(location).entity(sensor).build();  // 201 and  location header
     }
 
-    // GET /sensors/{id}
+
     @GET
     @Path("/{id}")
     public Response getSensor(@PathParam("id") String id) {
@@ -81,7 +78,7 @@ public class SensorResource {
         return Response.ok(sensor).build();
     }
 
-    // Sub-Resource Locator — no HTTP verb, Jersey dispatches to SensorReadingResource
+    // the sub-resource locator
     @Path("/{id}/readings")
     public SensorReadingResource getReadingResource(@PathParam("id") String sensorId) {
         return new SensorReadingResource(sensorId);

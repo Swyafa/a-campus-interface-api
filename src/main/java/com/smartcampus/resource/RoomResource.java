@@ -4,7 +4,6 @@ package com.smartcampus.resource;
 // Student Name: Mohammed Sami Bari
 
 // LOCATION: src/main/java/com/smartcampus/resource/RoomResource.java
-// REPLACE your existing RoomResource.java with this
 
 import com.smartcampus.exception.ErrorBody;
 import com.smartcampus.exception.RoomNotEmptyException;
@@ -24,14 +23,13 @@ import java.util.UUID;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RoomResource {
-
-    // GET /rooms
+    
     @GET
     public List<Room> getRooms() {
         return new ArrayList<Room>(dataStore.rooms.values());
     }
 
-    // POST /rooms — returns 201 Created with Location header
+    // returns a 201 Created with a location header
     @POST
     public Response createRoom(Room room) {
         if (room.name == null || room.name.trim().isEmpty()) {
@@ -43,10 +41,10 @@ public class RoomResource {
         dataStore.rooms.put(room.id, room);
 
         URI location = URI.create("http://localhost:8080/rooms/" + room.id);
-        return Response.created(location).entity(room).build();  // 201 + Location header
+        return Response.created(location).entity(room).build();  // 201 and the location header
     }
 
-    // GET /rooms/{id}
+    //
     @GET
     @Path("/{id}")
     public Response getRoom(@PathParam("id") String id) {
@@ -59,7 +57,7 @@ public class RoomResource {
         return Response.ok(room).build();
     }
 
-    // DELETE /rooms/{id} — blocked with 409 if sensors still assigned
+    // blocked with 409 if sensors are assigned to it
     @DELETE
     @Path("/{id}")
     public Response deleteRoom(@PathParam("id") String id) {
@@ -75,7 +73,7 @@ public class RoomResource {
             if (id.equals(s.roomId)) { hasSensors = true; break; }
         }
         if (hasSensors) {
-            throw new RoomNotEmptyException(id);  // → 409
+            throw new RoomNotEmptyException(id);  // 409
         }
 
         dataStore.rooms.remove(id);

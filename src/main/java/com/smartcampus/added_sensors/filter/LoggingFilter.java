@@ -3,7 +3,6 @@ package com.smartcampus.filter;
 // Student ID: w2069246
 // Student Name: Mohammed Sami Bari
 
-// LOCATION: src/main/java/com/smartcampus/filter/LoggingFilter.java
 
 import jakarta.annotation.Nonnull;
 import jakarta.ws.rs.container.ContainerRequestContext;

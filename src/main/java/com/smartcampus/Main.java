@@ -3,7 +3,6 @@ package com.smartcampus;
 // Student ID: w2069246
 // Student Name: Mohammed Sami Bari
 
-// LOCATION: src/main/java/com/smartcampus/Main.java
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;

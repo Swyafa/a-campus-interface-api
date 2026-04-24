@@ -3,8 +3,6 @@ package com.smartcampus.resource;
 // Student ID: w2069246
 // Student Name: Mohammed Sami Bari
 
-// LOCATION: src/main/java/com/smartcampus/resource/SensorReadingResource.java
-
 import com.smartcampus.exception.ErrorBody;
 import com.smartcampus.exception.SensorUnavailableException;
 import com.smartcampus.model.Sensor;
@@ -22,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-// No @Path here — path is set by the locator in SensorResource
+//  path is set by the locator in SensorResource that is why there is no @Path here
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class SensorReadingResource {
@@ -33,7 +31,7 @@ public class SensorReadingResource {
         this.sensorId = sensorId;
     }
 
-    // GET /sensors/{id}/readings
+
     @GET
     public Response getReadings() {
         Sensor sensor = dataStore.sensors.get(sensorId);
@@ -47,7 +45,7 @@ public class SensorReadingResource {
         return Response.ok(history).build();
     }
 
-    // POST /sensors/{id}/readings
+
     @POST
     public Response addReading(SensorReading reading) {
         Sensor sensor = dataStore.sensors.get(sensorId);
@@ -71,7 +69,7 @@ public class SensorReadingResource {
         }
         list.add(reading);
 
-        // Update parent sensor's currentValue — required by spec
+        // parents sensor
         sensor.currentValue = reading.value;
 
         return Response.status(Response.Status.CREATED).entity(reading).build();

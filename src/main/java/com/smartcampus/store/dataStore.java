@@ -3,9 +3,6 @@ package com.smartcampus.store;
 // Student ID: w2069246
 // Student Name: Mohammed Sami Bari
 
-// LOCATION: src/main/java/com/smartcampus/store/dataStore.java
-// REPLACE your existing dataStore.java with this
-
 import com.smartcampus.model.Room;
 import com.smartcampus.model.Sensor;
 import com.smartcampus.model.SensorReading;
@@ -23,6 +20,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * making thread-safe collections essential to prevent race conditions and
  * data corruption.
  */
+
+
 public class dataStore {
     public static Map<String, Room>                rooms    = new ConcurrentHashMap<String, Room>();
     public static Map<String, Sensor>              sensors  = new ConcurrentHashMap<String, Sensor>();

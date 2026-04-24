@@ -3,8 +3,6 @@ package com.smartcampus.resource;
 // Student ID: w2069246
 // Student Name: Mohammed Sami Bari
 
-// LOCATION: src/main/java/com/smartcampus/resource/rootResource.java
-// REPLACE your existing rootResource.java with this
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -27,7 +25,7 @@ public class rootResource {
         response.put("description", "RESTful API for managing campus rooms, sensors, and sensor readings.");
         response.put("contact", "admin@smartcampus.ac.uk");
 
-        // Resource map — tells clients where everything lives (HATEOAS principle)
+        // Resource map tells where the client where everything is HATEOAS principle is applied.
         Map<String, String> resources = new HashMap<String, String>();
         resources.put("rooms",    "http://localhost:8080/rooms");
         resources.put("sensors",  "http://localhost:8080/sensors");
